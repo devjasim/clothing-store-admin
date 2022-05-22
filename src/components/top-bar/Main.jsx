@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Lucide,
   Dropdown,
@@ -12,15 +12,45 @@ import {
 import { faker as $f } from "@/utils";
 import * as $_ from "lodash";
 import classnames from "classnames";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-function Main(props) {
+function Main() {
+  const [profileData, setProfileData] = useState();
+  const dispatch = useDispatch();
+
   const [searchDropdown, setSearchDropdown] = useState(false);
   const showSearchDropdown = () => {
     setSearchDropdown(true);
   };
+  
   const hideSearchDropdown = () => {
     setSearchDropdown(false);
   };
+
+  const location = useLocation();
+  const history = useNavigate();
+
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    history("/login");
+    setProfileData(null);
+  };
+
+
+  useEffect(() => {
+    const token = profileData?.result?.token;
+
+    if (token) {
+      const decodeedToekn = decode(token);
+
+      if (decodeedToekn.exp * 1000 < new Date().getTime()) {
+        logout();
+      }
+    }
+
+    setProfileData(JSON.parse(localStorage.getItem("profile")));
+  }, [location]);
 
   return (
     <>
@@ -29,7 +59,7 @@ function Main(props) {
         {/* BEGIN: Breadcrumb */}
         <nav
           aria-label="breadcrumb"
-          className="-intro-x mr-auto hidden sm:flex"
+          className="hidden mr-auto -intro-x sm:flex"
         >
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
@@ -42,11 +72,11 @@ function Main(props) {
         </nav>
         {/* END: Breadcrumb */}
         {/* BEGIN: Search */}
-        <div className="intro-x relative mr-3 sm:mr-6">
-          <div className="search hidden sm:block">
+        <div className="relative mr-3 intro-x sm:mr-6">
+          <div className="hidden search sm:block">
             <input
               type="text"
-              className="search__input form-control border-transparent"
+              className="border-transparent search__input form-control"
               placeholder="Search..."
               onFocus={showSearchDropdown}
               onBlur={hideSearchDropdown}
@@ -72,19 +102,19 @@ function Main(props) {
               <div className="search-result__content__title">Pages</div>
               <div className="mb-5">
                 <a href="" className="flex items-center">
-                  <div className="w-8 h-8 bg-success/20 dark:bg-success/10 text-success flex items-center justify-center rounded-full">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-success/20 dark:bg-success/10 text-success">
                     <Lucide icon="Inbox" className="w-4 h-4" />
                   </div>
                   <div className="ml-3">Mail Settings</div>
                 </a>
                 <a href="" className="flex items-center mt-2">
-                  <div className="w-8 h-8 bg-pending/10 text-pending flex items-center justify-center rounded-full">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-pending/10 text-pending">
                     <Lucide icon="Users" className="w-4 h-4" />
                   </div>
                   <div className="ml-3">Users & Permissions</div>
                 </a>
                 <a href="" className="flex items-center mt-2">
-                  <div className="w-8 h-8 bg-primary/10 dark:bg-primary/20 text-primary/80 flex items-center justify-center rounded-full">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary/80">
                     <Lucide icon="CreditCard" className="w-4 h-4" />
                   </div>
                   <div className="ml-3">Transactions Report</div>
@@ -102,7 +132,7 @@ function Main(props) {
                       />
                     </div>
                     <div className="ml-3">{faker.users[0].name}</div>
-                    <div className="ml-auto w-48 truncate text-slate-500 text-xs text-right">
+                    <div className="w-48 ml-auto text-xs text-right truncate text-slate-500">
                       {faker.users[0].email}
                     </div>
                   </a>
@@ -119,7 +149,7 @@ function Main(props) {
                     />
                   </div>
                   <div className="ml-3">{faker.products[0].name}</div>
-                  <div className="ml-auto w-48 truncate text-slate-500 text-xs text-right">
+                  <div className="w-48 ml-auto text-xs text-right truncate text-slate-500">
                     {faker.products[0].category}
                   </div>
                 </a>
@@ -129,18 +159,18 @@ function Main(props) {
         </div>
         {/* END: Search  */}
         {/* BEGIN: Notifications */}
-        <Dropdown className="intro-x mr-auto sm:mr-6">
+        <Dropdown className="mr-auto intro-x sm:mr-6">
           <DropdownToggle
             tag="div"
             role="button"
-            className="notification notification--bullet cursor-pointer"
+            className="cursor-pointer notification notification--bullet"
           >
             <Lucide
               icon="Bell"
               className="notification__icon dark:text-slate-500"
             />
           </DropdownToggle>
-          <DropdownMenu className="notification-content pt-2">
+          <DropdownMenu className="pt-2 notification-content">
             <DropdownContent tag="div" className="notification-content__box">
               <div className="notification-content__title">Notifications</div>
               {$_.take($f(), 5).map((faker, fakerKey) => (
@@ -151,20 +181,20 @@ function Main(props) {
                     "mt-5": fakerKey,
                   })}
                 >
-                  <div className="w-12 h-12 flex-none image-fit mr-1">
+                  <div className="flex-none w-12 h-12 mr-1 image-fit">
                     <img
                       alt="Midone Tailwind HTML Admin Template"
                       className="rounded-full"
                       src={faker.photos[0]}
                     />
-                    <div className="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600"></div>
+                    <div className="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-success dark:border-darkmode-600"></div>
                   </div>
                   <div className="ml-2 overflow-hidden">
                     <div className="flex items-center">
-                      <a href="" className="font-medium truncate mr-5">
+                      <a href="" className="mr-5 font-medium truncate">
                         {faker.users[0].name}
                       </a>
-                      <div className="text-xs text-slate-400 ml-auto whitespace-nowrap">
+                      <div className="ml-auto text-xs text-slate-400 whitespace-nowrap">
                         {faker.times[0]}
                       </div>
                     </div>
@@ -179,11 +209,11 @@ function Main(props) {
         </Dropdown>
         {/* END: Notifications  */}
         {/* BEGIN: Account Menu */}
-        <Dropdown className="intro-x w-8 h-8">
+        <Dropdown className="w-8 h-8 intro-x">
           <DropdownToggle
             tag="div"
             role="button"
-            className="w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in"
+            className="w-8 h-8 overflow-hidden rounded-full shadow-lg image-fit zoom-in"
           >
             <img
               alt="Midone Tailwind HTML Admin Template"
@@ -191,11 +221,11 @@ function Main(props) {
             />
           </DropdownToggle>
           <DropdownMenu className="w-56">
-            <DropdownContent className="bg-primary text-white">
+            <DropdownContent className="text-white bg-primary">
               <DropdownHeader tag="div" className="!font-normal">
-                <div className="font-medium">{$f()[0].users[0].name}</div>
+                <div className="font-medium">{profileData?.result.userName}</div>
                 <div className="text-xs text-white/70 mt-0.5 dark:text-slate-500">
-                  {$f()[0].jobs[0]}
+                  {/* {$f()[0].jobs[0]} */}
                 </div>
               </DropdownHeader>
               <DropdownDivider className="border-white/[0.08]" />
@@ -212,7 +242,7 @@ function Main(props) {
                 <Lucide icon="HelpCircle" className="w-4 h-4 mr-2" /> Help
               </DropdownItem>
               <DropdownDivider className="border-white/[0.08]" />
-              <DropdownItem className="hover:bg-white/5">
+              <DropdownItem  onClick={() => logout()}  className="hover:bg-white/5">
                 <Lucide icon="ToggleRight" className="w-4 h-4 mr-2" /> Logout
               </DropdownItem>
             </DropdownContent>
