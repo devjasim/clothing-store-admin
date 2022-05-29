@@ -76,6 +76,7 @@ const EditModal = (props) => {
   }
 
   const basicNonStickyNotification = useRef();
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if(!nameError && !passError && !oldError && !cpassError) {
