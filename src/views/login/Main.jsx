@@ -6,7 +6,7 @@ import illustrationUrl from "@/assets/images/illustration.svg";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { signin } from "../../../redux/actions/auth";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Main() {
 
@@ -40,6 +40,13 @@ function Main() {
       dispatch(signin(values, history));
     }
   }
+
+  React.useEffect(() => {
+    const tokens = window.localStorage.getItem("token");
+    if(tokens) {
+      history("/")
+    }
+  }, [])
 
   return (
     <>

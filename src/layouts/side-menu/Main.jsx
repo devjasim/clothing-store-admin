@@ -13,6 +13,7 @@ import MobileMenu from "@/components/mobile-menu/Main";
 import DarkModeSwitcher from "@/components/dark-mode-switcher/Main";
 import MainColorSwitcher from "@/components/main-color-switcher/Main";
 import SideMenuTooltip from "@/components/side-menu-tooltip/Main";
+import React from 'react';
 
 function Main() {
   const navigate = useNavigate();
@@ -26,6 +27,15 @@ function Main() {
     setFormattedMenu(sideMenu());
   }, [sideMenuStore, location.pathname]);
 
+  const history = useNavigate();
+
+  React.useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if(!token) {
+      history("/login")
+    }
+  }, []);
+
   return (
     <div className="py-2">
       <DarkModeSwitcher />
@@ -35,25 +45,25 @@ function Main() {
         {/* BEGIN: Side Menu */}
         <nav className="side-nav">
           <Link
-            to="/side-menu/dashboard-overview-1"
-            className="intro-x flex items-center pl-5 pt-4"
+            to="/"
+            className="flex items-center pt-4 pl-5 intro-x"
           >
             <img
               alt="Midone Tailwind HTML Admin Template"
               className="w-6"
               src={logoUrl}
             />
-            <span className="hidden xl:block text-white text-lg ml-3">
-              Rubick
+            <span className="hidden ml-3 text-lg text-white xl:block">
+              Dashboard
             </span>
           </Link>
-          <div className="side-nav__devider my-6"></div>
+          <div className="my-6 side-nav__devider"></div>
           <ul>
             {/* BEGIN: First Child */}
             {formattedMenu.map((menu, menuKey) =>
               menu == "devider" ? (
                 <li
-                  className="side-nav__devider my-6"
+                  className="my-6 side-nav__devider"
                   key={menu + menuKey}
                 ></li>
               ) : (
