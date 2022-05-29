@@ -35,6 +35,8 @@ function Main() {
     setFormattedMenu(topMenu());
   }, [topMenuStore, location.pathname]);
 
+  console.log("OKAY")
+
   return (
     <div className="py-2">
       <DarkModeSwitcher />

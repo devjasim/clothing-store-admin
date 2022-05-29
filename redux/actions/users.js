@@ -3,8 +3,8 @@ import {
   FETCH_ALL,
   CREATE,
   UPDATE,
-  LIKE,
-  DELETE,
+  DELETE_USER,
+  DASHBOARD
 } from "../actionTypes";
 
 // Action creator
@@ -12,37 +12,41 @@ export const getUsers = () => async (dispatch) => {
   try {
     const { data } = await api.fetchUsers();
     
-    dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: FETCH_ALL, payload: data.data });
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const updatePost = (id, post) => async (dispatch) => {
+// Action creator
+export const getDashboard = () => async (dispatch) => {
   try {
-    const data = await api.updatePost(id, post);
+    const { data } = await api.fetchDashboard();
+    
+    dispatch({ type: DASHBOARD, payload: data.result });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
-    dispatch({ type: UPDATE, payload: data });
+export const updateUser = (id, post, basicNonStickyNotification) => async (dispatch) => {
+  try {
+    await api.updateUser(id, post).then(res => {
+      basicNonStickyNotification.current.showToast();
+      dispatch({ type: UPDATE, payload: res.data.result });
+    });
+    
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deletePost = (id) => async (dispatch) => {
+export const deleteUser = (id, basicNonStickyNotification) => async (dispatch) => {
   try {
-    await api.deletePost(id);
-    dispatch({ type: DELETE, payload: id });
-    console.log("asfasfsaf");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const likePosts = (id) => async (dispatch) => {
-  try {
-    const { data } = await api.likePost(id);
-
-    dispatch({ type: LIKE, payload: data });
+    await api.deleteUser(id).then(res => {
+      basicNonStickyNotification.current.showToast();
+    });
+    dispatch({ type: DELETE_USER, payload: id });
   } catch (error) {
     console.log(error);
   }
