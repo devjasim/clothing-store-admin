@@ -1,7 +1,7 @@
 import DarkModeSwitcher from "@/components/dark-mode-switcher/Main";
 import React from 'react';
 import dom from "@left4code/tw-starter/dist/js/dom";
-import logoUrl from "@/assets/images/logo.svg";
+import logoUrl from "@/assets/images/logo.png";
 import illustrationUrl from "@/assets/images/illustration.svg";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -62,7 +62,7 @@ function Main() {
                   className="w-6"
                   src={logoUrl}
                 />
-                <span className="ml-3 text-lg text-white"> Rubick </span>
+                <span className="ml-3 text-lg text-white"> Stablespay </span>
               </a>
               <div className="my-auto">
                 <img
@@ -81,7 +81,7 @@ function Main() {
             </div>
             {/* END: Login Info */}
             {/* BEGIN: Login Form */}
-            <form type="submit" onSubmit={handleSubmit}>
+            <form type="submit" onSubmit={handleSubmit} className="flex flex-col justify-center">
               <div className="flex h-screen py-5 my-10 xl:h-auto xl:py-0 xl:my-0">
                 <div className="w-full px-5 py-8 mx-auto my-auto bg-white rounded-md shadow-md xl:ml-20 dark:bg-darkmode-600 xl:bg-transparent sm:px-8 xl:p-0 xl:shadow-none sm:w-3/4 lg:w-2/4 xl:w-auto">
                   <h2 className="text-2xl font-bold text-center intro-x xl:text-3xl xl:text-left">

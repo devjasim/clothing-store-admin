@@ -34,7 +34,7 @@ function Main() {
 
   return (
     <div className="grid grid-cols-12 gap-6">
-      <div className="col-span-12 2xl:col-span-9">
+      <div className="col-span-12 2xl:col-span-12">
         <div className="grid grid-cols-12 gap-6">
           {/* BEGIN: General Report */}
           <div className="col-span-12 mt-8">

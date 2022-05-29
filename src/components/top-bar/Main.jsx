@@ -12,7 +12,7 @@ import {
 import { faker as $f } from "@/utils";
 import * as $_ from "lodash";
 import classnames from "classnames";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 function Main() {
@@ -52,6 +52,8 @@ function Main() {
     setProfileData(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
 
+  console.log(location)
+
   return (
     <>
       {/* BEGIN: Top Bar */}
@@ -63,10 +65,10 @@ function Main() {
         >
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <a href="#">Application</a>
+              <Link to="/">Application</Link>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
-              Dashboard
+              {location.pathname === "/users" ? "User" : "Dashboard"}
             </li>
           </ol>
         </nav>
