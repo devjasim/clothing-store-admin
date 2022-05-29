@@ -85,27 +85,27 @@ const sideMenu = atom({
         title: "Users",
         pathname: "/users"
       },
-      {
-        icon: "Trello",
-        title: "Profile",
-        subMenu: [
-          {
-            icon: "",
-            pathname: "/profile-overview-1",
-            title: "Overview 1",
-          },
-          {
-            icon: "",
-            pathname: "/profile-overview-2",
-            title: "Overview 2",
-          },
-          {
-            icon: "",
-            pathname: "/profile-overview-3",
-            title: "Overview 3",
-          },
-        ],
-      },
+      // {
+      //   icon: "Trello",
+      //   title: "Profile",
+      //   subMenu: [
+      //     {
+      //       icon: "",
+      //       pathname: "/profile-overview-1",
+      //       title: "Overview 1",
+      //     },
+      //     {
+      //       icon: "",
+      //       pathname: "/profile-overview-2",
+      //       title: "Overview 2",
+      //     },
+      //     {
+      //       icon: "",
+      //       pathname: "/profile-overview-3",
+      //       title: "Overview 3",
+      //     },
+      //   ],
+      // },
       {
         icon: "Layout",
         title: "Pages",
@@ -205,21 +205,21 @@ const sideMenu = atom({
           //     },
           //   ],
           // },
-          {
-            icon: "",
-            pathname: "login",
-            title: "Login",
-          },
-          {
-            icon: "",
-            pathname: "register",
-            title: "Register",
-          },
-          {
-            icon: "",
-            pathname: "error-page",
-            title: "Error Page",
-          },
+          // {
+          //   icon: "",
+          //   pathname: "login",
+          //   title: "Login",
+          // },
+          // {
+          //   icon: "",
+          //   pathname: "register",
+          //   title: "Register",
+          // },
+          // {
+          //   icon: "",
+          //   pathname: "error-page",
+          //   title: "Error Page",
+          // },
           {
             icon: "",
             pathname: "/update-profile",

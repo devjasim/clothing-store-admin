@@ -662,14 +662,14 @@ function Router() {
     //       path: "faq-layout-3",
     //       element: <FaqLayout3 />,
     //     },
-    //     {
-    //       path: "update-profile",
-    //       element: <UpdateProfile />,
-    //     },
-    //     {
-    //       path: "change-password",
-    //       element: <ChangePassword />,
-    //     },
+        {
+          path: "update-profile",
+          element: <UpdateProfile />,
+        },
+        {
+          path: "change-password",
+          element: <ChangePassword />,
+        },
     //     {
     //       path: "regular-table",
     //       element: <RegularTable />,
