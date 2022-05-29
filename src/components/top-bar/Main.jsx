@@ -216,14 +216,14 @@ function Main() {
             className="w-8 h-8 overflow-hidden rounded-full shadow-lg image-fit zoom-in"
           >
             <img
-              alt="Midone Tailwind HTML Admin Template"
-              src={$f()[9].photos[0]}
+              alt="User"
+              src={profileData?.avatar}
             />
           </DropdownToggle>
           <DropdownMenu className="w-56">
             <DropdownContent className="text-white bg-primary">
               <DropdownHeader tag="div" className="!font-normal">
-                <div className="font-medium">{profileData?.result.userName}</div>
+                <div className="font-medium">{profileData?.userName}</div>
                 <div className="text-xs text-white/70 mt-0.5 dark:text-slate-500">
                   {/* {$f()[0].jobs[0]} */}
                 </div>

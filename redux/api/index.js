@@ -1,25 +1,27 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: `${process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1/admin" : "http://165.227.224.55:3001/api/v1/admin"}` });
+const API = axios.create({ baseURL: `${process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1/admin" : "https://api.stablespay.com/api/v1/admin"}` });
 
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem("profile")) {
+  if (localStorage.getItem("token")) {
     req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("profile")).token
+      JSON.parse(localStorage.getItem("token"))
     } `;
   }
   return req;
 });
 
 export const fetchUsers = () => API.get("/get-users");
-export const createPost = (newPost) => API.post("/posts", newPost);
-export const updatePost = (id, updatedPost) =>
-  API.patch(`/posts/${id}`, updatedPost);
+// export const createUser = (newPost) => API.post("/create", newPost);
+export const updateUser = (id, updatedData) =>
+  API.patch(`/update-user/${id}`, updatedData);
 
-export const deletePost = (id) => API.delete(`/posts/${id}`);
+export const deleteUser = (id) => API.delete(`/delete-user/${id}`);
 
-export const likePost = (id) => API.patch(`posts/${id}/likePost`);
+export const getUserById = (id) => API.get(`/get-user/${id}`);
 
 // Sign in route
 export const signIn = (formData) => API.post("/signin", formData);
-export const signUp = (formData) => API.post("/user/signup", formData);
+export const signUp = (formData) => API.post("/signup", formData);
+
+export const fetchDashboard = () => API.get("/dashboard");

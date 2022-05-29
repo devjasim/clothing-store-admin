@@ -33,20 +33,20 @@ function Main() {
       <div className="flex">
         {/* BEGIN: Simple Menu */}
         <nav className="side-nav side-nav--simple">
-          <Link to="/" className="intro-x flex items-center pl-5 pt-4">
+          <Link to="/" className="flex items-center pt-4 pl-5 intro-x">
             <img
               alt="Midone Tailwind HTML Admin Template"
               className="w-6"
               src={logoUrl}
             />
           </Link>
-          <div className="side-nav__devider my-6"></div>
+          <div className="my-6 side-nav__devider"></div>
           <ul>
             {/* BEGIN: First Child */}
             {formattedMenu.map((menu, menuKey) =>
               menu == "devider" ? (
                 <li
-                  className="side-nav__devider my-6"
+                  className="my-6 side-nav__devider"
                   key={menu + menuKey}
                 ></li>
               ) : (
