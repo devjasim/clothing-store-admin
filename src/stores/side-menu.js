@@ -106,10 +106,10 @@ const sideMenu = atom({
       //     },
       //   ],
       // },
-      {
-        icon: "Layout",
-        title: "Pages",
-        subMenu: [
+      // {
+      //   icon: "Layout",
+      //   title: "Pages",
+      //   subMenu: [
           // {
           //   icon: "",
           //   title: "Wizards",
@@ -220,18 +220,18 @@ const sideMenu = atom({
           //   pathname: "error-page",
           //   title: "Error Page",
           // },
-          {
-            icon: "",
-            pathname: "/update-profile",
-            title: "Update profile",
-          },
-          {
-            icon: "",
-            pathname: "/change-password",
-            title: "Change Password",
-          },
-        ],
-      },
+          // {
+          //   icon: "",
+          //   pathname: "/update-profile",
+          //   title: "Update profile",
+          // },
+          // {
+          //   icon: "",
+          //   pathname: "/change-password",
+          //   title: "Change Password",
+          // },
+      //   ],
+      // },
       // "devider",
       // {
       //   icon: "Inbox",
@@ -355,11 +355,11 @@ const sideMenu = atom({
       //       pathname: "/wysiwyg-editor",
       //       title: "Wysiwyg Editor",
       //     },
-          {
-            icon: "",
-            pathname: "/validation",
-            title: "Validation",
-          },
+          // {
+          //   icon: "X",
+          //   pathname: "/validation",
+          //   title: "Validation",
+          // },
       //   ],
       // },
       // {

@@ -14,6 +14,7 @@ import * as $_ from "lodash";
 import classnames from "classnames";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Profile from '../../assets/images/profile.png';
 
 function Main() {
   const [profileData, setProfileData] = useState();
@@ -51,8 +52,6 @@ function Main() {
 
     setProfileData(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
-
-  console.log(location)
 
   return (
     <>
@@ -219,7 +218,7 @@ function Main() {
           >
             <img
               alt="User"
-              src={profileData?.avatar}
+              src={profileData?.avatar || Profile}
             />
           </DropdownToggle>
           <DropdownMenu className="w-56">
