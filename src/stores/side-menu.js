@@ -355,11 +355,11 @@ const sideMenu = atom({
       //       pathname: "/wysiwyg-editor",
       //       title: "Wysiwyg Editor",
       //     },
-      //     {
-      //       icon: "",
-      //       pathname: "/validation",
-      //       title: "Validation",
-      //     },
+          {
+            icon: "",
+            pathname: "/validation",
+            title: "Validation",
+          },
       //   ],
       // },
       // {

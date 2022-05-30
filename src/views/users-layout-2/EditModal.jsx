@@ -7,16 +7,59 @@ import { useDispatch } from 'react-redux';
 const EditModal = (props) => {
   const dispatch = useDispatch();
 
-  const { buttonModalPreview, setButtonModalPreview, id } = props;
+  const schema = yup
+    .object({
+      userName: yup.string().required().min(2),
+      email: yup.string().required().email(),
+      role: yup.string().required().min(6),
+    })
+    .required();
 
-  const [profileData, setProfileData] = useState({
-    userName: "",
-    email: "",
-    roles: "",
-    oldPassword: "",
-    newPassword: "",
-    confirmPassword: ""
+  const {
+    register,
+    trigger,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      userName: "",
+      email: "",
+      roles: "",
+    },
+    mode: "onChange",
+    resolver: yupResolver(schema),
   });
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const result = await trigger();
+    if (!result) {
+      Toastify({
+        node: dom("#failed-notification-content")
+          .clone()
+          .removeClass("hidden")[0],
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+      }).showToast();
+    } else {
+      Toastify({
+        node: dom("#success-notification-content")
+          .clone()
+          .removeClass("hidden")[0],
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+      }).showToast();
+    }
+  };
+
+  const { buttonModalPreview, setButtonModalPreview, id } = props;
 
   const [nameError, setNameError] = useState(false)
   const [passError, setPassError] = useState(false)
@@ -125,37 +168,50 @@ const EditModal = (props) => {
               User deleted successfully!
           </div>
         </Notification>
-        <form onSubmit={handleSubmit} >
-          <div className="pt-7">
-            <div>
-                <label htmlFor="regular-form-1" className="form-label">Full Name*</label>
-                <input id="regular-form-1" name="userName" value={profileData.userName} onChange={handleChange} type="text" className="form-control" placeholder="Input text" />
-                {nameError && <div className="mt-2 text-danger">This field is required</div>}
-            </div>
-            <div className="mt-3">
-                <label htmlFor="regular-form-2" className="form-label">Email*</label>
-                <input id="regular-form-2" name="email" value={profileData.email} onChange={handleChange} disabled type="email" className="form-control" placeholder="Email" />
-            </div>
-            <div className="mt-3">
-                <label htmlFor="regular-form-6" className="form-label">User Role*</label>
-                <input id="regular-form-6" name="roles" value={profileData.roles} onChange={handleChange} type="text" className="form-control" placeholder="Role" />
-            </div>
-            <div className="mt-3">
-                <label htmlFor="regular-form-3" className="form-label">Old Password</label>
-                <input id="regular-form-3" name="oldPassword" value={profileData.oldPassword} onChange={handleChange} type="password" className="form-control" placeholder="Old Password" />
-                {oldError && <div className="mt-2 text-danger">This field is required</div>}
-            </div>
-            <div className="mt-3">
-                <label htmlFor="regular-form-4" className="form-label">New Password</label>
-                <input id="regular-form-4" name="newPassword" value={profileData.password} onChange={handleChange} type="password" className="form-control" placeholder="New Password" />
-                {passError && <div className="mt-2 text-danger">This field is required</div>}
-            </div>
-            <div className="mt-3">
-                <label htmlFor="regular-form-5" className="form-label">Confirm New Password</label>
-                <input id="regular-form-5" name="confirmPassword" value={profileData.confirmPassword} onChange={handleChange} type="password" className="form-control" placeholder="Confirm Password" />
-                {passError && <div className="mt-2 text-danger">This field is required</div>}
-                {cpassError && <div className="mt-2 text-danger">Password didn't match!</div>}
-            </div>
+        <form className="validate-form" onSubmit={onSubmit} >
+          <div className="input-form">
+              <label htmlFor="regular-form-1" className="form-label">Full Name*</label>
+              <input id="regular-form-1" name="userName" value={profileData.userName} onChange={handleChange} type="text" className="form-control" placeholder="Input text" />
+              {nameError && <div className="mt-2 text-danger">This field is required</div>}
+          </div>
+          <div className="mt-3 input-form">
+              <label htmlFor="validation-form-2" className="form-label">Email*</label>
+              <input
+                {...register("email")}
+                id="validation-form-1"
+                type="email"
+                name="email"
+                className={classnames({
+                  "form-control": true,
+                  "border-danger": errors.email,
+                })}
+                placeholder="example@gmail.com"
+              />
+              {errors.email && (
+                <div className="mt-2 text-danger">
+                  {errors.email.message}
+                </div>
+              )}
+          </div>
+          <div className="mt-3">
+              <label htmlFor="regular-form-6" className="form-label">User Role*</label>
+              <input id="regular-form-6" name="roles" value={profileData.roles} onChange={handleChange} type="text" className="form-control" placeholder="Role" />
+          </div>
+          <div className="mt-3">
+              <label htmlFor="regular-form-3" className="form-label">Old Password</label>
+              <input id="regular-form-3" name="oldPassword" value={profileData.oldPassword} onChange={handleChange} type="password" className="form-control" placeholder="Old Password" />
+              {oldError && <div className="mt-2 text-danger">This field is required</div>}
+          </div>
+          <div className="mt-3">
+              <label htmlFor="regular-form-4" className="form-label">New Password</label>
+              <input id="regular-form-4" name="newPassword" value={profileData.password} onChange={handleChange} type="password" className="form-control" placeholder="New Password" />
+              {passError && <div className="mt-2 text-danger">This field is required</div>}
+          </div>
+          <div className="mt-3">
+              <label htmlFor="regular-form-5" className="form-label">Confirm New Password</label>
+              <input id="regular-form-5" name="confirmPassword" value={profileData.confirmPassword} onChange={handleChange} type="password" className="form-control" placeholder="Confirm Password" />
+              {passError && <div className="mt-2 text-danger">This field is required</div>}
+              {cpassError && <div className="mt-2 text-danger">Password didn't match!</div>}
           </div>
           <div className="flex justify-between px-5 pb-8 mt-10">
             <button
