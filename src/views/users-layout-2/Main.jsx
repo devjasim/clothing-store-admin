@@ -1,11 +1,5 @@
 import {
-  Lucide,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownContent,
-  DropdownItem,
-  Notification
+  Lucide
 } from "@/base-components";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +7,7 @@ import { deleteUser, getUsers } from "../../../redux/actions/users";
 import EditModal from "./EditModal";
 import EditPassword from "./EditPass";
 import Profile from '../../assets/images/profile.png';
+import CreateUser from "./CreateUser";
 
 function Main() {
   const dispatch = useDispatch();
@@ -24,11 +19,12 @@ function Main() {
   const { users } = useSelector(state => state);
   const [userData,  setUserData] = useState([]);
 
-  const basicNonStickyNotification = useRef();
+  const deleteNotification = useRef();
+  const [deleteMessage, setDelteMessage] = useState("User deleted successfully");
 
   const hadnleDeleteUser = (id) => {
     if(id) {
-      dispatch(deleteUser(id, basicNonStickyNotification));
+      dispatch(deleteUser(id, deleteNotification, setDelteMessage));
     }
   }
 
@@ -38,6 +34,7 @@ function Main() {
 
   const [ showProfileModal, setShowProfileModal ] = useState(false);
   const [ showPassModal, setShowPassModal ] = useState(false);
+  const [ createUserModal, setCreateUserModal ] = useState(false);
   const [ userId, setUserId ] = useState(null);
 
   const handleModal = (id) => {
@@ -62,10 +59,17 @@ function Main() {
     }
   }
 
+  const handleCreate = () => {
+    setCreateUserModal(true);
+  }
+
   return (
     <>
       {showProfileModal && (
         <EditModal id={userId} buttonModalPreview={showProfileModal} setButtonModalPreview={setShowProfileModal} />
+      )}
+      {createUserModal && (
+        <CreateUser id={userId} createUserModal={createUserModal} setCreateUserModal={setCreateUserModal} />
       )}
       {showPassModal && (
         <EditPassword id={userId} showPassModal={showPassModal} setShowPassModal={setShowPassModal} />
@@ -86,6 +90,9 @@ function Main() {
                 className="absolute inset-y-0 right-0 w-4 h-4 my-auto mr-3"
               />
             </div>
+          </div>
+          <div className="ml-4">
+            <button onClick={handleCreate} className="px-2 text-base py-1.5 btn-primary btn">Creat New User</button>
           </div>
         </div>
         {/* BEGIN: Users Layout */}
@@ -109,16 +116,6 @@ function Main() {
                   </div>
                 </div>
                 <div className="flex mt-4 lg:mt-0">
-                  <Notification getRef={(el)=> {
-                      basicNonStickyNotification.current = el;
-                    }}
-                      options={{ duration: 3000 }}
-                      className="flex flex-col sm:flex-row"
-                    >
-                    <div className="font-medium">
-                        User deleted successfully!
-                    </div>
-                  </Notification>
                   <button onClick={() => hadnleDeleteUser(item._id)} className="px-2 py-1 mr-2 btn btn-danger">
                     <Lucide
                       icon="Trash"

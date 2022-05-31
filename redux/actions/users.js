@@ -29,11 +29,19 @@ export const getDashboard = () => async (dispatch) => {
   }
 };
 
-export const updateUser = (id, post, basicNonStickyNotification) => async (dispatch) => {
+export const updateUser = (id, post, updateNotification, setUpdateMessage, setButtonModalPreview) => async(dispatch) => {
   try {
     await api.updateUser(id, post).then(res => {
-      basicNonStickyNotification.current.showToast();
+      updateNotification.current.showToast();
+      setUpdateMessage("User update successfully")
+      setButtonModalPreview(false)
       dispatch({ type: UPDATE, payload: res.data.result });
+      if(res.data.result?.roles === "admin") {
+        localStorage.setItem("profile", JSON.stringify(res.data.result));
+      }
+    }).catch(err => {
+      updateNotification.current.showToast();
+      setUpdateMessage(err?.response?.data?.message)
     });
     
   } catch (error) {
@@ -41,13 +49,33 @@ export const updateUser = (id, post, basicNonStickyNotification) => async (dispa
   }
 };
 
-export const deleteUser = (id, basicNonStickyNotification) => async (dispatch) => {
+export const deleteUser = (id, deleteNotification, setDelteMessage) => async (dispatch) => {
   try {
     await api.deleteUser(id).then(res => {
-      basicNonStickyNotification.current.showToast();
+      setDelteMessage("User deleted successfully")
+      deleteNotification.current.showToast();
     });
     dispatch({ type: DELETE_USER, payload: id });
   } catch (error) {
+    setDelteMessage("User delete failed")
+    deleteNotification.current.showToast();
     console.log(error);
   }
 };
+
+export const createUser = (formData, showNotification, setNotification, setCreateUserModal) => async (dispatch) => {
+  try {
+    await api.createUser(formData).then(res => {
+      setNotification("User created successfully");
+      showNotification.current.showToast();
+      setCreateUserModal(false);
+      dispatch({type: CREATE, payload: res?.data?.result});
+    }).catch((err) => {
+      setNotification(err.response.data?.message)
+      showNotification.current.showToast();
+    });
+
+  } catch (error) {
+    console.log(error)
+  }
+}

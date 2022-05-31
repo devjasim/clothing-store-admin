@@ -1,15 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Modal, ModalBody, Lucide, Notification, Tippy } from "@/base-components";
+import { Modal, ModalBody, Lucide, Notification } from "@/base-components";
 import { getUserById } from '../../../redux/api';
 import { updateUser } from '../../../redux/actions/users';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
-import Toastify from "toastify-js";
-import dom from "@left4code/tw-starter/dist/js/dom";
 import classnames from "classnames";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { get } from 'lodash';
 import FileBase from 'react-file-base64'
 import './styles.css';
 import Profile from '../../assets/images/profile.png';
@@ -46,6 +43,9 @@ const EditModal = (props) => {
     resolver: yupResolver(schema),
   });
 
+  const [updateMessage, setUpdateMessage] = useState("User updated successfylly");
+  const updateNotification = useRef();
+
   const onSubmit = async (data) => {
     const results = await trigger();
     if (results) {
@@ -55,13 +55,11 @@ const EditModal = (props) => {
         avatar: avatar || "",
       }
 
-      dispatch(updateUser(id, formData , basicNonStickyNotification))
-      setButtonModalPreview(false);
+      dispatch(updateUser(id, formData, updateNotification, setUpdateMessage, setButtonModalPreview))
     }
   };
 
   const getUser = async(_id) => {
-    console.log("ID", _id)
     const { data: {result} } = await getUserById(_id);
     
     if(result) {
@@ -77,8 +75,6 @@ const EditModal = (props) => {
   useEffect(() => {
     getUser(id);
   }, []);
-
-  const basicNonStickyNotification = useRef();
 
   return (
     <Modal
@@ -104,13 +100,13 @@ const EditModal = (props) => {
           <h2 className='text-3xl'>Update Profile</h2>
         </div>
         <Notification getRef={(el)=> {
-            basicNonStickyNotification.current = el;
+            updateNotification.current = el;
           }}
             options={{ duration: 3000 }}
             className="flex flex-col sm:flex-row"
           >
           <div className="font-medium">
-              User updated successfully!
+              {updateMessage}
           </div>
         </Notification>
         <form className="validate-form" onSubmit={handleSubmit(onSubmit)} >
@@ -182,9 +178,6 @@ const EditModal = (props) => {
                 id="validation-form-6"
                 {...register("roles")}
                 type="text"
-                render={(value) => {
-                  console.log(value)
-                }}
                 name="roles"
                 className={classnames({
                   "form-select": true,
