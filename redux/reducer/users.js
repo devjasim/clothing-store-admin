@@ -8,12 +8,13 @@ export const users = (user = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
       return action.payload;
+
     case DELETE_USER:
-      return user.filter((item) => item._id !== action.payload)
+      return user.filter((item) => item._id !== action.payload);
 
     case UPDATE:
-      return user.map((item) => item._id === action.payload._id ? action.payload : item)
-
+      return user.map((item) => item._id === action.payload._id ? action.payload : item);
+      
     default:
       return user;
   }

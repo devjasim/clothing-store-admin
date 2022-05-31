@@ -71,29 +71,29 @@ function Main() {
 
   return (
     <>
-      <div className="intro-y flex items-center mt-8">
-        <h2 className="text-lg font-medium mr-auto">Form Validation</h2>
+      <div className="flex items-center mt-8 intro-y">
+        <h2 className="mr-auto text-lg font-medium">Form Validation</h2>
       </div>
       <div className="grid grid-cols-12 gap-6 mt-5">
-        <div className="intro-y col-span-12 lg:col-span-6">
+        <div className="col-span-12 intro-y lg:col-span-6">
           {/* BEGIN: Form Validation */}
           <PreviewComponent className="intro-y box">
             {({ toggle }) => (
               <>
-                <div className="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
-                  <h2 className="font-medium text-base mr-auto">
+                <div className="flex flex-col items-center p-5 border-b sm:flex-row border-slate-200/60 dark:border-darkmode-400">
+                  <h2 className="mr-auto text-base font-medium">
                     Implementation
                   </h2>
-                  <div className="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">
+                  <div className="w-full mt-3 form-check form-switch sm:w-auto sm:ml-auto sm:mt-0">
                     <label
-                      className="form-check-label ml-0"
+                      className="ml-0 form-check-label"
                       htmlFor="show-example-1"
                     >
                       Show example code
                     </label>
                     <input
                       onClick={toggle}
-                      className="form-check-input mr-0 ml-3"
+                      className="ml-3 mr-0 form-check-input"
                       type="checkbox"
                     />
                   </div>
@@ -105,10 +105,10 @@ function Main() {
                       <div className="input-form">
                         <label
                           htmlFor="validation-form-1"
-                          className="form-label w-full flex flex-col sm:flex-row"
+                          className="flex flex-col w-full form-label sm:flex-row"
                         >
                           Name
-                          <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
+                          <span className="mt-1 text-xs sm:ml-auto sm:mt-0 text-slate-500">
                             Required, at least 2 characters
                           </span>
                         </label>
@@ -124,18 +124,18 @@ function Main() {
                           placeholder="John Legend"
                         />
                         {errors.name && (
-                          <div className="text-danger mt-2">
+                          <div className="mt-2 text-danger">
                             {errors.name.message}
                           </div>
                         )}
                       </div>
-                      <div className="input-form mt-3">
+                      <div className="mt-3 input-form">
                         <label
                           htmlFor="validation-form-2"
-                          className="form-label w-full flex flex-col sm:flex-row"
+                          className="flex flex-col w-full form-label sm:flex-row"
                         >
                           Email
-                          <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
+                          <span className="mt-1 text-xs sm:ml-auto sm:mt-0 text-slate-500">
                             Required, email address format
                           </span>
                         </label>
@@ -151,18 +151,18 @@ function Main() {
                           placeholder="example@gmail.com"
                         />
                         {errors.email && (
-                          <div className="text-danger mt-2">
+                          <div className="mt-2 text-danger">
                             {errors.email.message}
                           </div>
                         )}
                       </div>
-                      <div className="input-form mt-3">
+                      <div className="mt-3 input-form">
                         <label
                           htmlFor="validation-form-3"
-                          className="form-label w-full flex flex-col sm:flex-row"
+                          className="flex flex-col w-full form-label sm:flex-row"
                         >
                           Password
-                          <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
+                          <span className="mt-1 text-xs sm:ml-auto sm:mt-0 text-slate-500">
                             Required, at least 6 characters
                           </span>
                         </label>
@@ -178,18 +178,18 @@ function Main() {
                           placeholder="secret"
                         />
                         {errors.password && (
-                          <div className="text-danger mt-2">
+                          <div className="mt-2 text-danger">
                             {errors.password.message}
                           </div>
                         )}
                       </div>
-                      <div className="input-form mt-3">
+                      <div className="mt-3 input-form">
                         <label
                           htmlFor="validation-form-4"
-                          className="form-label w-full flex flex-col sm:flex-row"
+                          className="flex flex-col w-full form-label sm:flex-row"
                         >
                           Age
-                          <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
+                          <span className="mt-1 text-xs sm:ml-auto sm:mt-0 text-slate-500">
                             Required, integer only & maximum 3 characters
                           </span>
                         </label>
@@ -205,18 +205,18 @@ function Main() {
                           placeholder="21"
                         />
                         {errors.age && (
-                          <div className="text-danger mt-2">
+                          <div className="mt-2 text-danger">
                             {errors.age.message}
                           </div>
                         )}
                       </div>
-                      <div className="input-form mt-3">
+                      <div className="mt-3 input-form">
                         <label
                           htmlFor="validation-form-5"
-                          className="form-label w-full flex flex-col sm:flex-row"
+                          className="flex flex-col w-full form-label sm:flex-row"
                         >
                           Profile URL
-                          <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
+                          <span className="mt-1 text-xs sm:ml-auto sm:mt-0 text-slate-500">
                             Optional, URL format
                           </span>
                         </label>
@@ -232,18 +232,18 @@ function Main() {
                           placeholder="https://google.com"
                         />
                         {errors.url && (
-                          <div className="text-danger mt-2">
+                          <div className="mt-2 text-danger">
                             {errors.url.message}
                           </div>
                         )}
                       </div>
-                      <div className="input-form mt-3">
+                      <div className="mt-3 input-form">
                         <label
                           htmlFor="validation-form-6"
-                          className="form-label w-full flex flex-col sm:flex-row"
+                          className="flex flex-col w-full form-label sm:flex-row"
                         >
                           Comment
-                          <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
+                          <span className="mt-1 text-xs sm:ml-auto sm:mt-0 text-slate-500">
                             Required, at least 10 characters
                           </span>
                         </label>
@@ -258,12 +258,12 @@ function Main() {
                           placeholder="Type your comments"
                         ></textarea>
                         {errors.comment && (
-                          <div className="text-danger mt-2">
+                          <div className="mt-2 text-danger">
                             {errors.comment.message}
                           </div>
                         )}
                       </div>
-                      <button type="submit" className="btn btn-primary mt-5">
+                      <button type="submit" className="mt-5 btn btn-primary">
                         Register
                       </button>
                     </form>
@@ -338,12 +338,12 @@ function Main() {
           {/* BEGIN: Success Notification Content */}
           <div
             id="success-notification-content"
-            className="toastify-content hidden flex"
+            className="flex hidden toastify-content"
           >
             <Lucide icon="CheckCircle" className="text-success" />
             <div className="ml-4 mr-4">
               <div className="font-medium">Registration success!</div>
-              <div className="text-slate-500 mt-1">
+              <div className="mt-1 text-slate-500">
                 Please check your e-mail for further info!
               </div>
             </div>
@@ -352,12 +352,12 @@ function Main() {
           {/* BEGIN: Failed Notification Content */}
           <div
             id="failed-notification-content"
-            className="toastify-content hidden flex"
+            className="flex hidden toastify-content"
           >
             <Lucide icon="XCircle" className="text-danger" />
             <div className="ml-4 mr-4">
               <div className="font-medium">Registration failed!</div>
-              <div className="text-slate-500 mt-1">
+              <div className="mt-1 text-slate-500">
                 Please check the fileld form.
               </div>
             </div>

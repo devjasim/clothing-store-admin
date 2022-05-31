@@ -11,6 +11,8 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUsers } from "../../../redux/actions/users";
 import EditModal from "./EditModal";
+import EditPassword from "./EditPass";
+import Profile from '../../assets/images/profile.png';
 
 function Main() {
   const dispatch = useDispatch();
@@ -34,11 +36,17 @@ function Main() {
     setUserData(users)
   }, [users])
 
-  const [ buttonModalPreview, setButtonModalPreview ] = useState(false);
+  const [ showProfileModal, setShowProfileModal ] = useState(false);
+  const [ showPassModal, setShowPassModal ] = useState(false);
   const [ userId, setUserId ] = useState(null);
 
   const handleModal = (id) => {
-    setButtonModalPreview(true);
+    setShowProfileModal(true);
+    setUserId(id)
+  }
+
+  const handlePassword = (id) => {
+    setShowPassModal(true);
     setUserId(id)
   }
 
@@ -56,8 +64,11 @@ function Main() {
 
   return (
     <>
-      {buttonModalPreview && (
-        <EditModal id={userId} buttonModalPreview={buttonModalPreview} setButtonModalPreview={setButtonModalPreview} />
+      {showProfileModal && (
+        <EditModal id={userId} buttonModalPreview={showProfileModal} setButtonModalPreview={setShowProfileModal} />
+      )}
+      {showPassModal && (
+        <EditPassword id={userId} showPassModal={showPassModal} setShowPassModal={setShowPassModal} />
       )}
       <h2 className="mt-10 text-lg font-medium intro-y">Users Layout</h2>
       <div className="grid grid-cols-12 gap-6 mt-5">
@@ -86,7 +97,7 @@ function Main() {
                   <img
                     alt="Avatar"
                     className="rounded-full"
-                    src={item.avatar}
+                    src={item.avatar || Profile}
                   />
                 </div>
                 <div className="mt-3 text-center lg:ml-2 lg:mr-auto lg:text-left lg:mt-0">
@@ -109,10 +120,16 @@ function Main() {
                     </div>
                   </Notification>
                   <button onClick={() => hadnleDeleteUser(item._id)} className="px-2 py-1 mr-2 btn btn-danger">
-                    Delete
+                    <Lucide
+                      icon="Trash"
+                      className="inset-y-0 right-0 w-4 h-4 my-auto"
+                    />
                   </button>
                   <button onClick={() => handleModal(item._id)} className="px-2 py-1 mr-2 btn btn-primary">
-                    Edit
+                    Edit Profile
+                  </button>
+                  <button onClick={() => handlePassword(item._id)} className="px-2 py-1 mr-2 btn btn-warning">
+                    Edit Password
                   </button>
                 </div>
               </div>

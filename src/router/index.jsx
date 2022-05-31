@@ -750,10 +750,10 @@ function Router() {
     //       path: "wysiwyg-editor",
     //       element: <WysiwygEditor />,
     //     },
-    //     {
-    //       path: "validation",
-    //       element: <Validation />,
-    //     },
+        {
+          path: "validation",
+          element: <Validation />,
+        },
     //     {
     //       path: "chart",
     //       element: <Chart />,
