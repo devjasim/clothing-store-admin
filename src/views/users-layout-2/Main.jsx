@@ -77,7 +77,7 @@ function Main() {
       <h2 className="mt-10 text-lg font-medium intro-y">Users Layout</h2>
       <div className="grid grid-cols-12 gap-6 mt-5">
         <div className="flex flex-wrap items-center col-span-12 mt-2 intro-y sm:flex-nowrap">
-          <div className="w-full mt-3 sm:w-auto sm:mt-0 sm:ml-auto md:ml-0">
+          <div className="w-full mt-3 sm:w-auto sm:mt-0 md:ml-0">
             <div className="relative w-56 text-slate-500">
               <input
                 type="text"
@@ -91,7 +91,7 @@ function Main() {
               />
             </div>
           </div>
-          <div className="ml-4">
+          <div className="mt-4 ml-0 sm:ml-4 sm:mt-0">
             <button onClick={handleCreate} className="px-2 text-base py-1.5 btn-primary btn">Creat New User</button>
           </div>
         </div>
