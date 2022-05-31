@@ -35,6 +35,8 @@ const EditPassword = (props) => {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
+  
+  const passwordNotification = useRef();
 
   const onSubmit = async (data) => {
     const result = await trigger();
@@ -43,12 +45,11 @@ const EditPassword = (props) => {
         newPassword: data.newPassword,
         confirmPassword: data.confirmPassword,
       }
-      dispatch(updateUser(id, formData , basicNonStickyNotification))
+      dispatch(updateUser(id, formData , passwordNotification))
       setShowPassModal(false);
     }
   };
 
-  const basicNonStickyNotification = useRef();
 
   return (
     <Modal
@@ -74,7 +75,7 @@ const EditPassword = (props) => {
           <h2 className='text-3xl'>Update Password</h2>
         </div>
         <Notification getRef={(el)=> {
-            basicNonStickyNotification.current = el;
+            passwordNotification.current = el;
           }}
             options={{ duration: 3000 }}
             className="flex flex-col sm:flex-row"

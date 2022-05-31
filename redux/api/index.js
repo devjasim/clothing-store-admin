@@ -22,6 +22,7 @@ export const getUserById = (id) => API.get(`/get-user/${id}`);
 
 // Sign in route
 export const signIn = (formData) => API.post("/signin", formData);
-export const signUp = (formData) => API.post("/signup", formData);
+// export const signUp = (formData) => API.post("/signup", formData);
+export const createUser = (formData) => API.post("/create-user", formData);
 
 export const fetchDashboard = () => API.get("/dashboard");

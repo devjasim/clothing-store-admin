@@ -15,6 +15,8 @@ import classnames from "classnames";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Profile from '../../assets/images/profile.png';
+import EditModal from "../../views/users-layout-2/EditModal";
+import EditPassword from "../../views/users-layout-2/EditPass";
 
 function Main() {
   const [profileData, setProfileData] = useState();
@@ -38,6 +40,11 @@ function Main() {
     setProfileData(null);
   };
 
+  let data;
+  if(localStorage.getItem("profile")) {
+    data = localStorage.getItem("profile");
+  }
+
 
   useEffect(() => {
     const token = profileData?.result?.token;
@@ -51,11 +58,20 @@ function Main() {
     }
 
     setProfileData(JSON.parse(localStorage.getItem("profile")));
-  }, [location]);
+  }, [location, data]);
+
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showPassModal, setShowPassModal] = useState(false);
 
   return (
     <>
       {/* BEGIN: Top Bar */}
+      {showProfileModal && (
+        <EditModal id={profileData?._id} buttonModalPreview={showProfileModal} setButtonModalPreview={setShowProfileModal} />
+      )}
+      {showPassModal && (
+        <EditPassword id={profileData?._id} showPassModal={showPassModal} setShowPassModal={setShowPassModal} />
+      )}
       <div className="top-bar">
         {/* BEGIN: Breadcrumb */}
         <nav
@@ -74,7 +90,7 @@ function Main() {
         {/* END: Breadcrumb */}
         {/* BEGIN: Search */}
         <div className="relative mr-3 intro-x sm:mr-6">
-          <div className="hidden search sm:block">
+          {/* <div className="hidden search sm:block">
             <input
               type="text"
               className="border-transparent search__input form-control"
@@ -92,8 +108,8 @@ function Main() {
               icon="Search"
               className="notification__icon dark:text-slate-500"
             />
-          </a>
-          <div
+          </a> */}
+          {/* <div
             className={classnames({
               "search-result": true,
               show: searchDropdown,
@@ -156,11 +172,11 @@ function Main() {
                 </a>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
         {/* END: Search  */}
         {/* BEGIN: Notifications */}
-        <Dropdown className="mr-auto intro-x sm:mr-6">
+        {/* <Dropdown className="mr-auto intro-x sm:mr-6">
           <DropdownToggle
             tag="div"
             role="button"
@@ -207,10 +223,12 @@ function Main() {
               ))}
             </DropdownContent>
           </DropdownMenu>
-        </Dropdown>
+        </Dropdown> */}
         {/* END: Notifications  */}
         {/* BEGIN: Account Menu */}
+        <span className="mr-4 text-lg">{profileData?.userName}</span>
         <Dropdown className="w-8 h-8 intro-x">
+          
           <DropdownToggle
             tag="div"
             role="button"
@@ -230,13 +248,10 @@ function Main() {
                 </div>
               </DropdownHeader>
               <DropdownDivider className="border-white/[0.08]" />
-              <DropdownItem className="hover:bg-white/5">
+              <DropdownItem onClick={() => setShowProfileModal(true)} className="hover:bg-white/5">
                 <Lucide icon="User" className="w-4 h-4 mr-2" /> Profile
               </DropdownItem>
-              <DropdownItem className="hover:bg-white/5">
-                <Lucide icon="Edit" className="w-4 h-4 mr-2" /> Add Account
-              </DropdownItem>
-              <DropdownItem className="hover:bg-white/5">
+              <DropdownItem onClick={() => setShowPassModal(true)} className="hover:bg-white/5">
                 <Lucide icon="Lock" className="w-4 h-4 mr-2" /> Reset Password
               </DropdownItem>
               <DropdownItem className="hover:bg-white/5">
