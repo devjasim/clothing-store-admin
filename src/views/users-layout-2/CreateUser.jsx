@@ -81,7 +81,7 @@ const CreateUser = (props) => {
       </a>
       <ModalBody className="p-10 mt-4">
         <div className="mb-5 text-center">
-          <h2 className='text-3xl'>Update Profile</h2>
+          <h2 className='text-3xl'>Create New User</h2>
         </div>
         <Notification getRef={(el)=> {
             createNotification.current = el;
@@ -207,7 +207,7 @@ const CreateUser = (props) => {
               type="submit"
               className="w-24 btn btn-primary"
             >
-              Update
+              Create
             </button>
           </div>
         </form>
