@@ -48,14 +48,7 @@ function Main() {
             to="/"
             className="flex items-center pt-4 pl-5 intro-x"
           >
-            <img
-              alt="Midone Tailwind HTML Admin Template"
-              className="w-6"
-              src={logoUrl}
-            />
-            <span className="hidden ml-3 text-lg text-white xl:block">
-              Stablespay
-            </span>
+            <h1 style={{fontSize:"1rem", fontWeight: "700", color: "#fff"}}>True Commerce</h1>
           </Link>
           <div className="my-6 side-nav__devider"></div>
           <ul>

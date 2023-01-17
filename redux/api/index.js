@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: `${process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1/admin" : "https://api.stablespay.com/api/v1/admin"}` });
+const API = axios.create({ baseURL: `${process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1/admin" : null}` });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("token")) {
@@ -26,3 +26,6 @@ export const signIn = (formData) => API.post("/signin", formData);
 export const createUser = (formData) => API.post("/create-user", formData);
 
 export const fetchDashboard = () => API.get("/dashboard");
+
+export const createProduct = (formData) => API.post("/create-product", formData);
+export const getProducts = (formData) => API.get("/get-products");

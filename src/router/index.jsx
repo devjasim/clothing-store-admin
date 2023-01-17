@@ -110,14 +110,14 @@ function Router() {
         //   path: "calendar",
         //   element: <Calendar />,
         // },
-        // {
-        //   path: "crud-data-list",
-        //   element: <CrudDataList />,
-        // },
-        // {
-        //   path: "crud-form",
-        //   element: <CrudForm />,
-        // },
+        {
+          path: "product-list",
+          element: <CrudDataList />,
+        },
+        {
+          path: "create-product",
+          element: <CrudForm />,
+        },
         // {
         //   path: "users-layout-1",
         //   element: <UsersLayout1 />,

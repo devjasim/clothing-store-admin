@@ -64,22 +64,22 @@ const sideMenu = atom({
       //   title: "Calendar",
       // },
       // "devider",
-      // {
-      //   icon: "Edit",
-      //   title: "Crud",
-      //   subMenu: [
-      //     {
-      //       icon: "",
-      //       pathname: "/crud-data-list",
-      //       title: "Data List",
-      //     },
-      //     {
-      //       icon: "",
-      //       pathname: "/crud-form",
-      //       title: "Form",
-      //     },
-      //   ],
-      // },
+      {
+        icon: "Edit",
+        title: "Product",
+        subMenu: [
+          {
+            icon: "",
+            pathname: "/product-list",
+            title: "Product List",
+          },
+          {
+            icon: "",
+            pathname: "/create-product",
+            title: "Create Product",
+          },
+        ],
+      },
       {
         icon: "Users",
         title: "Users",
