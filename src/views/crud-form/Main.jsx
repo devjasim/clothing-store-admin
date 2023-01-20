@@ -43,6 +43,8 @@ function Main() {
   const handleSubmit = () => {
     const allData = {
       ...formData,
+      price: String(formData.price),
+      availableQuantity: String(formData.availableQuantity),
       categories: [...categories],
       images: [file],
       availableSizes: [...sizes]
@@ -94,7 +96,7 @@ function Main() {
                 value={formData.price}
                 onChange={handleChange}
                 name="price"
-                type='text'
+                type='number'
                 className="w-full form-control"
                 placeholder="Input text"
               />
@@ -107,7 +109,7 @@ function Main() {
                 value={formData.availableQuantity}
                 onChange={handleChange}
                 name="availableQuantity"
-                type='text'
+                type='number'
                 className="w-full form-control"
                 placeholder="Input text"
               />
